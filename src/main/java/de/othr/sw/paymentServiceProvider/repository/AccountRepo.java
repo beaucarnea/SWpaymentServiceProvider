@@ -1,11 +1,10 @@
 package de.othr.sw.paymentServiceProvider.repository;
 
-import de.othr.sw.paymentServiceProvider.entity.User;
+import de.othr.sw.paymentServiceProvider.entity.Account;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-// ToDo: Crud, Jpa, PagingAndSorting
 @Repository
-public interface UserRepo extends CrudRepository<User, String> {
+public interface AccountRepo extends CrudRepository<Account, Long> {
 
 }

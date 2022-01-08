@@ -10,7 +10,58 @@ public class Payment {
     private Long paymentId;
     private String sender;
     private String receiver;
-    private String amount; //ToDo: datatype?
+    private Double amount; //ToDo: datatype?
     private String reference;
     private Date date;
+
+    public Payment() {
+    }
+
+    public Long getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

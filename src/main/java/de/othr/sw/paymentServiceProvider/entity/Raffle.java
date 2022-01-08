@@ -10,9 +10,9 @@ public class Raffle {
     @Id
     private Long raffleId;
     @ManyToOne
-    private BankAccount sender;
+    private Account sender;
     @ManyToOne
-    private BankAccount receiver;
+    private Account receiver;
     private int amount;
     private int participants;
     private Long winner;

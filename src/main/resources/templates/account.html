@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head th:replace="common/header :: header"/>
+<body>
+    <div th:replace="common/header :: navigation"/>
+    <h1>Payments</h1>
+    <table class="table table-dark table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Sender</th>
+            <th scope="col">Receiver</th>
+            <th scope="col">Amount</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="payment : ${payments}">
+            <th scope="row"><label th:text="${payment.getPaymentId()}"></label></th>
+            <td><label th:text="${payment.getSender()}"></label></td>
+            <td><label th:text="${payment.getReceiver()}"></label></td>
+            <td><label th:text="${payment.getAmount()}"></label></td>
+            <td><form th:action="@{/payment}">
+                <input type="hidden" th:value="${payment.getPaymentId()}" name="paymentId"/>
+                <button type="submit" class="btn btn-primary">Details</button>
+            </form></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
