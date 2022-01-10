@@ -1,13 +1,17 @@
 package de.othr.sw.paymentServiceProvider.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Address {
     @Id
+    @GeneratedValue(
+            strategy= GenerationType.AUTO)
     private Long addressId;
-    private String houseNumberAndStreet;
+    private String streetAndHousenumber;
     private String location;
     private String postcode;
     private String country;
@@ -20,12 +24,12 @@ public class Address {
         this.addressId = addressId;
     }
 
-    public String getHouseNumberAndStreet() {
-        return houseNumberAndStreet;
+    public String getStreetAndHousenumber() {
+        return streetAndHousenumber;
     }
 
-    public void setHouseNumberAndStreet(String houseNumberAndStreet) {
-        this.houseNumberAndStreet = houseNumberAndStreet;
+    public void setStreetAndHousenumber(String houseNumberAndStreet) {
+        this.streetAndHousenumber = houseNumberAndStreet;
     }
 
     public String getLocation() {

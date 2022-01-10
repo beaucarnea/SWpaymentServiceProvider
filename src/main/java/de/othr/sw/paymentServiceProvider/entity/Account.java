@@ -1,25 +1,21 @@
 package de.othr.sw.paymentServiceProvider.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
 public class Account {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long accountId;
 //    private User user;
     private String accountNumber;
     @OneToMany
     private Collection<Payment> payments;
-
     public Long getAccountId() {
         return accountId;
     }
-
     public void setAccountId(Long accountId) {
         this.accountId = accountId;
     }

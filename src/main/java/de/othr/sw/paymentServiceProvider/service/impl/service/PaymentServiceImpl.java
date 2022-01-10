@@ -1,6 +1,7 @@
 package de.othr.sw.paymentServiceProvider.service.impl.service;
 
 import de.othr.sw.paymentServiceProvider.entity.Payment;
+import de.othr.sw.paymentServiceProvider.repository.AccountRepo;
 import de.othr.sw.paymentServiceProvider.repository.PaymentRepo;
 import de.othr.sw.paymentServiceProvider.service.PaymentService;
 import de.othr.sw.paymentServiceProvider.service.ServiceException;
@@ -14,6 +15,9 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
+
+    @Autowired
+    private AccountRepo accountRepo;
 
     @Autowired
     private PaymentRepo paymentRepo;
@@ -43,7 +47,8 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public void addPayment() {
+    public Payment addPayment(Payment payment) {
 
+        return paymentRepo.save(payment);
     }
 }

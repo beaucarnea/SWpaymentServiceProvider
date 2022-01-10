@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Collection;
 
@@ -31,5 +32,16 @@ public class AccountController {
         Payment payment = paymentService.getPaymentById(paymentId);
         model.addAttribute("payment", payment);
         return "payment";
+    }
+
+    @RequestMapping(value = "/newPayment", method = RequestMethod.GET) // /login
+    public String newPayment(Model model) {
+        model.addAttribute("user", new Payment());
+        return "newPayment";
+    }
+    @RequestMapping(value = "/newPayment", method = RequestMethod.POST)
+    public String registerUser(@ModelAttribute("payment") Payment payment) {
+        paymentService.addPayment(payment);
+        return "account";
     }
 }

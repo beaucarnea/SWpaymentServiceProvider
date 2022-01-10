@@ -1,12 +1,15 @@
 package de.othr.sw.paymentServiceProvider.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
 public class Payment {
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long paymentId;
     private String sender;
     private String receiver;

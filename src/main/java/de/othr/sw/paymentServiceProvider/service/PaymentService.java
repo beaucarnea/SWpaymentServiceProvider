@@ -10,7 +10,7 @@ public interface PaymentService {
     List<Payment> getPaymentsByAccount(Long accountId);
     Collection<Payment> getPaymentsByEmail(String senderEmail, String receiverEmail);
     Collection<Payment> getPaymentsByAccountId(Long accountId);
-    void addPayment();
+    Payment addPayment(Payment payment);
 
 
 }

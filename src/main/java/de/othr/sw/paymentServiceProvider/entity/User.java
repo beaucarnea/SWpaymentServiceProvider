@@ -10,14 +10,14 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class User extends SingleIdEntity<String> implements UserDetails {
+public class User extends SingleIdEntity<Long> implements UserDetails {
 
     @Id
-    @Column(length = 64)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long userId;
     private String email;
     private String firstname;
     private String lastname;
-    private Date birthdate;
     private String password;
     private String phoneNumber;
     @OneToOne
@@ -33,6 +33,14 @@ public class User extends SingleIdEntity<String> implements UserDetails {
         return firstname;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
@@ -43,14 +51,6 @@ public class User extends SingleIdEntity<String> implements UserDetails {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
-    }
-
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
     }
 
     public String getEmail() {
@@ -94,8 +94,8 @@ public class User extends SingleIdEntity<String> implements UserDetails {
     }
 
     @Override
-    public String getID() {
-        return this.email;
+    public Long getID() {
+        return this.userId;
     }
 
     @Override
@@ -146,7 +146,6 @@ public class User extends SingleIdEntity<String> implements UserDetails {
         return "User{" +
                 "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", birthdate=" + birthdate +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
