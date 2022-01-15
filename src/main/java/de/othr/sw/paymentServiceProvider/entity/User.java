@@ -10,21 +10,24 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User extends SingleIdEntity<Long> implements UserDetails {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long userId;
+    @Column(unique = true)
     private String email;
     private String firstname;
     private String lastname;
     private String password;
     private String phoneNumber;
-    @OneToOne
+    //@OneToOne
+    @Embedded
     private Address address;
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST})
     private Account account;
 
     public User() {}
@@ -148,10 +151,7 @@ public class User extends SingleIdEntity<Long> implements UserDetails {
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address=" + address +
-                ", accountType=" + accountType +
-                ", account=" + account +
+                ", phoneNumber='" + phoneNumber + '\''+
                 '}';
     }
 }

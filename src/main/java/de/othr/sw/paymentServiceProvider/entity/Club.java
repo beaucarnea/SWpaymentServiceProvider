@@ -7,6 +7,10 @@ public class Club extends User {
     private String clubId;
     private String clubName;
 
+    public Club(){
+
+    }
+
     public String getClubId() {
         return clubId;
     }

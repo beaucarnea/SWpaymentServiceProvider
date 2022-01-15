@@ -14,6 +14,6 @@ public class ServiceSecurityUtilities {
     private String salt;
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(15, new SecureRandom(salt.getBytes()));
+        return new BCryptPasswordEncoder(8, new SecureRandom(salt.getBytes()));
     }
 }

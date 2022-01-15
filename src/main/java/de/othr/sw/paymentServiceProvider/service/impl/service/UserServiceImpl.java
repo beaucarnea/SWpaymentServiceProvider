@@ -3,7 +3,7 @@ package de.othr.sw.paymentServiceProvider.service.impl.service;
 import de.othr.sw.paymentServiceProvider.entity.Club;
 import de.othr.sw.paymentServiceProvider.entity.User;
 import de.othr.sw.paymentServiceProvider.repository.AccountRepo;
-import de.othr.sw.paymentServiceProvider.repository.AddressRepo;
+//import de.othr.sw.paymentServiceProvider.repository.AddressRepo;
 import de.othr.sw.paymentServiceProvider.repository.ClubRepo;
 import de.othr.sw.paymentServiceProvider.repository.UserRepo;
 import de.othr.sw.paymentServiceProvider.service.ServiceException;
@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
     private ClubRepo clubRepo;
     @Autowired
     private AccountRepo accountRepo;
-    @Autowired
-    private AddressRepo addressRepo;
+    /*@Autowired
+    private AddressRepo addressRepo;*/
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -47,16 +47,16 @@ public class UserServiceImpl implements UserService {
     public User registerUser(User newUser) {
 
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        addressRepo.save(newUser.getAddress());
-        accountRepo.save(newUser.getAccount());
+        //addressRepo.save(newUser.getAddress());
+        //accountRepo.save(newUser.getAccount());
         return userRepo.save(newUser);
     }
 
     @Override
     public Club registerClub(Club newClub) {
         newClub.setPassword(passwordEncoder.encode(newClub.getPassword()));
-        addressRepo.save(newClub.getAddress());
-        accountRepo.save(newClub.getAccount());
+        //addressRepo.save(newClub.getAddress());
+        //accountRepo.save(newClub.getAccount());
         return clubRepo.save(newClub);
     }
 

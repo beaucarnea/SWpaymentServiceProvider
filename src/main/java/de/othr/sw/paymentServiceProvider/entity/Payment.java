@@ -1,23 +1,55 @@
 package de.othr.sw.paymentServiceProvider.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import de.othr.sw.paymentServiceProvider.entity.util.SingleIdEntity;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Payment {
+public class Payment extends SingleIdEntity<Long> {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long paymentId;
     private String sender;
     private String receiver;
+    @ManyToOne
+    private Account senderAccount;
+
+    @OneToOne
+    private Account receiverAccount;
     private Double amount; //ToDo: datatype?
     private String reference;
     private Date date;
 
     public Payment() {
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "paymentId=" + paymentId +
+                ", sender='" + sender + '\'' +
+                ", receiver='" + receiver + '\'' +
+                ", senderAccount=" + senderAccount +
+                ", receiverAccount=" + receiverAccount +
+                ", amount=" + amount +
+                ", reference='" + reference + '\'' +
+                ", date=" + date +
+                '}';
+    }
+
+    public void setSenderAccount(Account senderAccount) {
+        this.senderAccount = senderAccount;
+    }
+
+    public void setReceiverAccount(Account receiverAccount) {
+        this.receiverAccount = receiverAccount;
+    }
+    public Account getReceiverAccount() {
+        return receiverAccount;
+    }
+    public Account getSenderAccount() {
+        return senderAccount;
     }
 
     public Long getPaymentId() {
@@ -66,5 +98,10 @@ public class Payment {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public Long getID() {
+        return this.paymentId;
     }
 }

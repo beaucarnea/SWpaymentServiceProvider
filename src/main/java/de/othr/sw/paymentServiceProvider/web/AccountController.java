@@ -20,7 +20,7 @@ public class AccountController {
 
     @RequestMapping("/account")
     public String account(Model model) {
-        Collection<Payment> payments = paymentService.getPaymentsByAccountId(Long.valueOf(0));
+        Collection<Payment> payments = paymentService.getPaymentsByThisAccountId();
         System.out.println(payments);
         model.addAttribute("payments", payments);
         return "account";
@@ -42,6 +42,6 @@ public class AccountController {
     @RequestMapping(value = "/newPayment", method = RequestMethod.POST)
     public String registerUser(@ModelAttribute("payment") Payment payment) {
         paymentService.addPayment(payment);
-        return "account";
+        return "redirect:/account";
     }
 }
