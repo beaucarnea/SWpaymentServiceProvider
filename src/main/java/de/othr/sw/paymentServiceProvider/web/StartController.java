@@ -1,10 +1,9 @@
 package de.othr.sw.paymentServiceProvider.web;
 
 import de.othr.sw.paymentServiceProvider.entity.*;
-import de.othr.sw.paymentServiceProvider.service.PaymentService;
 import de.othr.sw.paymentServiceProvider.service.UserService;
+import de.othr.sw.paymentServiceProvider.service.impl.service.MessageSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,8 +16,12 @@ public class StartController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageSenderService messageSenderService;
+
     @RequestMapping("/")
     public String start() {
+        messageSenderService.sendExternalPayment();
         return "index";
     }
 
