@@ -29,13 +29,7 @@ public class MessagingConfiguration {
         factory.setBrokerURL(brokerUrl);
         return factory;
     }
-/*    @Bean
-    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory() {
-        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory());
-        factory.setConcurrency("{#setDesiredConcurrency}");
-        return factory;
-    }*/
+
     @Bean
     public MessageConverter jacksonJmsMessageConverter() {
         MappingJackson2MessageConverter converter;

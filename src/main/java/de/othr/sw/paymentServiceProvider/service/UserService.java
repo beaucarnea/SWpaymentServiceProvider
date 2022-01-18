@@ -9,4 +9,5 @@ public interface UserService extends UserDetailsService {
     User getUserByEmail(String email);
     User registerUser(User newUser);
     Club registerClub (Club newClub);
+    void deleteUser();
 }

@@ -60,6 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
     public Collection<Payment> getPaymentsByThisAccountId() {
         //return paymentRepo.findBySenderContaining(accountId, PageRequest.of(1, 20, Sort.by("date").descending()));
         User thisUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("this User: " + thisUser.toString());
         return paymentRepo.findBySenderAccount(thisUser.getAccount());
     }
 

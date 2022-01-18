@@ -9,11 +9,14 @@ import de.othr.sw.paymentServiceProvider.repository.UserRepo;
 import de.othr.sw.paymentServiceProvider.service.ServiceException;
 import de.othr.sw.paymentServiceProvider.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Scope(scopeName = "singleton")
@@ -67,5 +70,12 @@ public class UserServiceImpl implements UserService {
         return userRepo.findUserByEmailContaining(username).orElseThrow(
                 () -> new UsernameNotFoundException("User with email " + username + " not found")
         );
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(){
+        User thisUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userRepo.delete(thisUser);
     }
 }

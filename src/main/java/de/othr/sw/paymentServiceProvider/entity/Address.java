@@ -7,9 +7,7 @@ import javax.persistence.*;
 //@Entity
 @Embeddable
 public class Address {
-    //@Id
-    //@GeneratedValue(strategy= GenerationType.AUTO)
-    private Long addressId;
+
     private String streetAndHousenumber;
     private String location;
     private String postcode;
@@ -17,14 +15,6 @@ public class Address {
 
     public Address(){
 
-    }
-
-    public Long getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
     }
 
     public String getStreetAndHousenumber() {

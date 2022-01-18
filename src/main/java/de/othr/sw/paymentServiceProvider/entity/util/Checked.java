@@ -1,4 +1,4 @@
-package de.othr.sw.paymentServiceProvider.entity;
+package de.othr.sw.paymentServiceProvider.entity.util;
 
 public class Checked {
 

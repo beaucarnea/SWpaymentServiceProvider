@@ -5,7 +5,7 @@ import de.othr.sw.paymentServiceProvider.entity.Payment;
 import de.othr.sw.paymentServiceProvider.entity.Raffle;
 import de.othr.sw.paymentServiceProvider.service.PaymentService;
 import de.othr.sw.paymentServiceProvider.service.RaffleService;
-import de.othr.sw.paymentServiceProvider.util.PaymentApiUtilities;
+import de.othr.sw.paymentServiceProvider.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class AccountController {
     private RaffleService raffleService;
 
     @Autowired
-    private PaymentApiUtilities externalPayments;
+    private UserService userService;
 
     @RequestMapping("/account")
     public String account(Model model) {
@@ -82,7 +82,12 @@ public class AccountController {
     @RequestMapping(value = "/newRaffle", method = RequestMethod.POST)
     public String newRafflePost(@ModelAttribute("raffle") Raffle raffle) {
 
-        raffleService.addRaffle(raffle);
+        raffleService.newRaffle(raffle);
         return "redirect:/account";
+    }
+    @RequestMapping(value="/deleteUser", method = RequestMethod.GET)
+    public String deleteUser(Model model){
+        userService.deleteUser();
+        return "redirect:/";
     }
 }

@@ -9,6 +9,6 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateBuilderConfiguration {
     @Bean
     public RestTemplate createRestTemplateBuilder(RestTemplateBuilder builder) {
-        return builder.build();
+        return builder.basicAuthentication("test123", "password").build();
     }
 }

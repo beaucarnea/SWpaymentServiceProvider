@@ -1,8 +1,8 @@
 package de.othr.sw.paymentServiceProvider.web;
 
 import de.othr.sw.paymentServiceProvider.entity.*;
+import de.othr.sw.paymentServiceProvider.entity.util.Checked;
 import de.othr.sw.paymentServiceProvider.service.UserService;
-import de.othr.sw.paymentServiceProvider.service.PaymentApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -18,8 +18,6 @@ public class StartController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PaymentApiService paymentApiService;
 
     @RequestMapping("/")
     public String start() {
