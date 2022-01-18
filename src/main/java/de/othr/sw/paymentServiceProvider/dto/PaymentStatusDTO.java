@@ -9,7 +9,7 @@ public class PaymentStatusDTO implements Serializable {
     public PaymentStatusDTO() {
     }
 
-    public PaymentStatusDTO(Boolean status, Integer orderId) {
+    public PaymentStatusDTO(Boolean status, int orderId) {
         this.status = status;
         this.orderId = orderId;
     }
@@ -22,11 +22,11 @@ public class PaymentStatusDTO implements Serializable {
         this.status = status;
     }
 
-    public Integer getOrderId() {
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 }

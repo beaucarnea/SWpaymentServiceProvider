@@ -9,6 +9,7 @@ import de.othr.sw.paymentServiceProvider.repository.UserRepo;
 import de.othr.sw.paymentServiceProvider.service.PaymentService;
 import de.othr.sw.paymentServiceProvider.service.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,12 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.transaction.Transactional.TxType;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@Scope(scopeName = "singleton")
 public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
@@ -73,6 +76,7 @@ public class PaymentServiceImpl implements PaymentService {
         Account senderAccount = thisUser.getAccount();
         payment.setSenderAccount(senderAccount);
         payment.setSender(thisUser.getEmail());
+        payment.setDate(new Date());
 
         if(payment.getReceiver() == ""){
             return null;

@@ -2,14 +2,12 @@ package de.othr.sw.paymentServiceProvider.entity;
 
 import de.othr.sw.paymentServiceProvider.entity.util.SingleIdEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Raffle extends SingleIdEntity<Long> {
     @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long raffleId;
     @ManyToOne
     private Account sender;

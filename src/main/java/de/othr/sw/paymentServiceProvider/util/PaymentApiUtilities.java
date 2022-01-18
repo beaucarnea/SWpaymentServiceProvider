@@ -1,6 +1,6 @@
-package de.othr.sw.paymentServiceProvider.service.impl.service;
+package de.othr.sw.paymentServiceProvider.util;
 
-import de.othr.sw.paymentServiceProvider.dto.ExternalPaymentDTO;
+import de.othr.sw.paymentServiceProvider.dto.PaymentDTO;
 import de.othr.sw.paymentServiceProvider.entity.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,13 +10,13 @@ import java.util.HashMap;
 
 @Component
 @Scope("singleton")
-public class ExternalPayments {
+public class PaymentApiUtilities {
 
-    private HashMap<Long, ExternalPaymentDTO> externalPayments = new HashMap<Long, ExternalPaymentDTO>();
+    private HashMap<Long, PaymentDTO> externalPayments = new HashMap<Long, PaymentDTO>();
     private HashMap<Integer, String> webAddress = new HashMap<>();
     private Long paymentCounter;
 
-    public ExternalPayments() {
+    public PaymentApiUtilities() {
     }
 
     public Long getPaymentCounter() {
@@ -27,13 +27,13 @@ public class ExternalPayments {
         this.paymentCounter = this.paymentCounter+1;
     }
 
-    public void addNewPayment(ExternalPaymentDTO payment){
+    public void addNewPayment(PaymentDTO payment){
         externalPayments.put(paymentCounter, payment);
     }
 
-    public ExternalPaymentDTO getPayment(Long id){
+    public PaymentDTO getPayment(Long id){
         User thisUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ExternalPaymentDTO payment = externalPayments.get(id);
+        PaymentDTO payment = externalPayments.get(id);
         if(payment == null){
             return null;
         }

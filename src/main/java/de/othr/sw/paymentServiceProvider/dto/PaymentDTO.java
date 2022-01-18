@@ -1,26 +1,19 @@
 package de.othr.sw.paymentServiceProvider.dto;
 
-import de.othr.sw.paymentServiceProvider.entity.Account;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import java.io.Serializable;
-import java.util.Date;
 
-public class ExternalPaymentDTO implements Serializable {
+public class PaymentDTO implements Serializable {
 
     private String sender;
     private String receiver;
-    private Double amount;
+    private double amount;
     private String reference;
-    private Integer orderId;
+    private int orderId;
 
-    public ExternalPaymentDTO() {
+    public PaymentDTO() {
     }
 
-    public ExternalPaymentDTO(String sender, String receiver, Double amount, String reference, Integer orderId) {
+    public PaymentDTO(String sender, String receiver, double amount, String reference, int orderId) {
         this.sender = sender;
         this.receiver = receiver;
         this.amount = amount;
@@ -28,12 +21,12 @@ public class ExternalPaymentDTO implements Serializable {
         this.orderId = orderId;
     }
 
-    public Integer getOrderId() {
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
-        orderId = orderId;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public String getSender() {
@@ -52,11 +45,11 @@ public class ExternalPaymentDTO implements Serializable {
         this.receiver = receiver;
     }
 
-    public Double getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

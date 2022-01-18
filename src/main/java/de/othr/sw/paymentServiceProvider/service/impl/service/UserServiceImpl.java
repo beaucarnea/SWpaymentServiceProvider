@@ -9,12 +9,14 @@ import de.othr.sw.paymentServiceProvider.repository.UserRepo;
 import de.othr.sw.paymentServiceProvider.service.ServiceException;
 import de.othr.sw.paymentServiceProvider.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Scope(scopeName = "singleton")
 public class UserServiceImpl implements UserService {
 
     @Autowired

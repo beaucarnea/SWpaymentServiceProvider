@@ -1,10 +1,13 @@
 package de.othr.sw.paymentServiceProvider.web;
 
-import de.othr.sw.paymentServiceProvider.dto.ExternalPaymentDTO;
+import de.othr.sw.paymentServiceProvider.dto.PaymentDTO;
 import de.othr.sw.paymentServiceProvider.entity.Payment;
+import de.othr.sw.paymentServiceProvider.entity.Raffle;
 import de.othr.sw.paymentServiceProvider.service.PaymentService;
-import de.othr.sw.paymentServiceProvider.service.impl.service.ExternalPayments;
+import de.othr.sw.paymentServiceProvider.service.RaffleService;
+import de.othr.sw.paymentServiceProvider.util.PaymentApiUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +16,17 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Collection;
 
 @Controller
+@Scope(scopeName = "singleton")
 public class AccountController {
 
     @Autowired
     private PaymentService paymentService;
 
     @Autowired
-    private ExternalPayments externalPayments;
+    private RaffleService raffleService;
+
+    @Autowired
+    private PaymentApiUtilities externalPayments;
 
     @RequestMapping("/account")
     public String account(Model model) {
@@ -51,7 +58,7 @@ public class AccountController {
     @RequestMapping(value = "/newPayment/{id}", method = RequestMethod.GET)
     public String newPaymentExternal(Model model, @PathVariable long id) {
         //ExternalPayment externalPayment = externalPayments.getPayment(id);
-        ExternalPaymentDTO externalPayment = new ExternalPaymentDTO();
+        PaymentDTO externalPayment = new PaymentDTO();
         externalPayment.setReceiver("das@gmail.com");
         externalPayment.setAmount(100000.0);
         externalPayment.setReference("test payment");
@@ -64,5 +71,18 @@ public class AccountController {
     public ModelAndView newPaymentExternal(@ModelAttribute("payment") Payment payment) {
         paymentService.addPayment(payment);
         return new ModelAndView("redirect:" + "http://www.google.de");
+    }
+
+    @RequestMapping(value="/newRaffle", method = RequestMethod.GET)
+    public String newRaffle(Model model){
+        model.addAttribute("raffle", new Raffle());
+        return "/newRaffle";
+    }
+
+    @RequestMapping(value = "/newRaffle", method = RequestMethod.POST)
+    public String newRafflePost(@ModelAttribute("raffle") Raffle raffle) {
+
+        raffleService.addRaffle(raffle);
+        return "redirect:/account";
     }
 }

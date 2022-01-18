@@ -59,7 +59,7 @@ public class PaymentServiceProviderApplication implements ApplicationRunner {
 		}
 
 		try{
-			userService.getUserByEmail("standard@othr.de");
+			userService.getUserByEmail("thorsten@othr.de");
 		}catch(Exception e) {
 			Address standardAddress = new Address();
 			//standardAddress.setAddressId(2354L);
@@ -75,9 +75,9 @@ public class PaymentServiceProviderApplication implements ApplicationRunner {
 			stanardAccount.setPayments(payments);
 
 			User standard = new User();
-			standard.setEmail("standard@othr.de");
-			standard.setFirstname("Kai");
-			standard.setLastname("Krauns");
+			standard.setEmail("thorsten@othr.de");
+			standard.setFirstname("Thosten");
+			standard.setLastname("Bauer");
 			standard.setPassword("password");
 			standard.setAddress(standardAddress);
 			standard.setAccount(stanardAccount);

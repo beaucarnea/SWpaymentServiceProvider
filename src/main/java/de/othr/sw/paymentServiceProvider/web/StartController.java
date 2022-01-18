@@ -2,8 +2,9 @@ package de.othr.sw.paymentServiceProvider.web;
 
 import de.othr.sw.paymentServiceProvider.entity.*;
 import de.othr.sw.paymentServiceProvider.service.UserService;
-import de.othr.sw.paymentServiceProvider.service.impl.service.MessageSenderService;
+import de.othr.sw.paymentServiceProvider.service.PaymentApiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@Scope(scopeName = "singleton")
 public class StartController {
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private MessageSenderService messageSenderService;
+    private PaymentApiService paymentApiService;
 
     @RequestMapping("/")
     public String start() {
-        messageSenderService.sendExternalPayment();
         return "index";
     }
 
