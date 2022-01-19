@@ -13,8 +13,6 @@ public class Account extends SingleIdEntity<Long> {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long accountId;
-//  private User user;
-    private String accountNumber;
     @OneToMany(mappedBy="sender", fetch = FetchType.EAGER)
     private List<Payment> payments;
 
@@ -28,14 +26,6 @@ public class Account extends SingleIdEntity<Long> {
 
     public void setAccountId(Long accountId) {
         this.accountId = accountId;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
     }
 
     public List<Payment> getPayments() {

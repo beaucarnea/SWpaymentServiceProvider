@@ -12,4 +12,5 @@ import java.util.Optional;
 @Scope(scopeName = "singleton")
 public interface UserRepo extends CrudRepository<User, Long> {
     Optional<User> findUserByEmailContaining(String email);
+    Optional<User> findUserByEmail(String email);
 }

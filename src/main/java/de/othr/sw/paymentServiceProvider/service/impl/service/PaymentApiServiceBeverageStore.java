@@ -27,10 +27,10 @@ public class PaymentApiServiceBeverageStore implements PaymentApiService {
 
     public void sendPaymentStatus(PaymentStatusDTO paymentStatusDTO) {
         System.out.println("sendPaymentStatus");
-        jmsTemplate.convertAndSend("sw_marius1_hauenstein_queue_thorsten_paymentStatus", paymentStatusDTO);
+        jmsTemplate.convertAndSend("sw_marius1_hauenstein_queue_florian_paymentStatus", paymentStatusDTO);
     }
 
-    @JmsListener(destination = "sw_thorsten_bauer_queue_PayQueue")
+    @JmsListener(destination = "sw_florian_samaga_PayQueue")
     public void receiveMessage(PaymentDTO newPayment) {
         PaymentStatusDTO paymentStatusDTO = new PaymentStatusDTO(false, newPayment.getOrderId());
         Payment payment = new Payment();
@@ -40,10 +40,10 @@ public class PaymentApiServiceBeverageStore implements PaymentApiService {
         payment.setAmount(newPayment.getAmount());
         Optional<User> receiverAccount = userRepo.findUserByEmailContaining(newPayment.getReceiver());
         if(receiverAccount.isPresent()){
-            System.out.println("receiverAccount");
+            //System.out.println("receiverAccount");
             payment.setReceiverAccount(receiverAccount.get().getAccount());
         }else{
-            System.out.println("no receiverAccount");
+            //System.out.println("no receiverAccount");
             this.sendPaymentStatus(paymentStatusDTO);
             return;
         }

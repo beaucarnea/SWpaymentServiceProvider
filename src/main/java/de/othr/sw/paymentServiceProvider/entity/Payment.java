@@ -17,7 +17,7 @@ public class Payment extends SingleIdEntity<Long> {
 
     @OneToOne
     private Account receiverAccount;
-    private Double amount; //ToDo: datatype?
+    private Double amount;
     private String reference;
     @Temporal(TemporalType.DATE)
     private Date date;

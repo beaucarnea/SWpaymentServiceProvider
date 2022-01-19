@@ -36,7 +36,6 @@ public class PaymentServiceProviderApplication implements ApplicationRunner {
 			adminAddress.setCountry("Deutschland");
 
 			Account adminAccount = new Account();
-			adminAccount.setAccountNumber("426537357");
 			List<Payment> payments = Collections.emptyList();
 			adminAccount.setPayments(payments);
 
@@ -62,7 +61,6 @@ public class PaymentServiceProviderApplication implements ApplicationRunner {
 			standardAddress.setCountry("Japan");
 
 			Account stanardAccount = new Account();
-			stanardAccount.setAccountNumber("4456353577");
 			List<Payment> payments = Collections.emptyList();
 			stanardAccount.setPayments(payments);
 
@@ -70,6 +68,30 @@ public class PaymentServiceProviderApplication implements ApplicationRunner {
 			standard.setEmail("thorsten@clubshop.de");
 			standard.setFirstname("Thosten");
 			standard.setLastname("Bauer");
+			standard.setPassword("password");
+			standard.setAddress(standardAddress);
+			standard.setAccount(stanardAccount);
+			standard.setAccountType(AccountType.STANDARD);
+			standard.setPhoneNumber("52043");
+			userService.registerUser(standard);
+		}
+		try{
+			userService.getUserByEmail("maxi@gmail.com");
+		}catch(Exception e) {
+			Address standardAddress = new Address();
+			standardAddress.setStreetAndHousenumber("Kaistrasse 32");
+			standardAddress.setLocation("Regensburg");
+			standardAddress.setPostcode("93055");
+			standardAddress.setCountry("Japan");
+
+			Account stanardAccount = new Account();
+			List<Payment> payments = Collections.emptyList();
+			stanardAccount.setPayments(payments);
+
+			User standard = new User();
+			standard.setEmail("maxi@gmail.com");
+			standard.setFirstname("Maxi");
+			standard.setLastname("Wienzierl");
 			standard.setPassword("password");
 			standard.setAddress(standardAddress);
 			standard.setAccount(stanardAccount);

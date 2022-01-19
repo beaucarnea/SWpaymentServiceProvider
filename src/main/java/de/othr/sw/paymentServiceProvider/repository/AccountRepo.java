@@ -11,4 +11,5 @@ import java.util.Optional;
 @Repository
 @Scope(scopeName = "singleton")
 public interface AccountRepo extends CrudRepository<Account, Long> {
+
 }

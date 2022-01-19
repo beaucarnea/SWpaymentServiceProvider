@@ -36,22 +36,18 @@ public class AccountController {
         return "account";
     }
 
-    @RequestMapping("/payment")
-    public String accountPayment(@ModelAttribute("paymentId") Long paymentId, Model model) {
-        System.out.println("paymentId: " + paymentId);
-        Payment payment = paymentService.getPaymentById(paymentId);
-        model.addAttribute("payment", payment);
-        return "payment";
-    }
-
     @RequestMapping(value = "/newPayment", method = RequestMethod.GET)
     public String newPayment(Model model) {
         model.addAttribute("payment", new Payment());
         return "newPayment";
     }
+
     @RequestMapping(value = "/newPayment", method = RequestMethod.POST)
     public String newPaymentPost(@ModelAttribute("payment") Payment payment) {
-        paymentService.addPayment(payment);
+        payment = paymentService.addPayment(payment);
+        if(payment == null){
+            return "redirect:/newPayment?error";
+        }
         return "redirect:/account";
     }
 
@@ -82,12 +78,16 @@ public class AccountController {
     @RequestMapping(value = "/newRaffle", method = RequestMethod.POST)
     public String newRafflePost(@ModelAttribute("raffle") Raffle raffle) {
 
-        raffleService.newRaffle(raffle);
+        raffle = raffleService.newRaffle(raffle);
+        if(raffle == null){
+            return "redirect:/newRaffle?error";
+        }
         return "redirect:/account";
     }
+
     @RequestMapping(value="/deleteUser", method = RequestMethod.GET)
     public String deleteUser(Model model){
         userService.deleteUser();
-        return "redirect:/";
+        return "redirect:/logout";
     }
 }

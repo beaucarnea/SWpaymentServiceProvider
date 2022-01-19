@@ -61,7 +61,7 @@ public class PaymentServiceImpl implements PaymentService {
         //return paymentRepo.findBySenderContaining(accountId, PageRequest.of(1, 20, Sort.by("date").descending()));
         User thisUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println("this User: " + thisUser.toString());
-        return paymentRepo.findBySenderAccount(thisUser.getAccount());
+        return paymentRepo.findByReceiverAccount_AccountIdOrSenderAccount_AccountId(thisUser.getAccount().getAccountId(), thisUser.getAccount().getAccountId());
     }
 
     @Override
@@ -78,7 +78,7 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setSenderAccount(senderAccount);
         payment.setSender(thisUser.getEmail());
         payment.setDate(new Date());
-
+        System.out.println("Receiver: " + payment.getReceiver());
         if(payment.getReceiver() == ""){
             return null;
         }

@@ -20,10 +20,7 @@
             <td><label th:text="${payment.getSender()}"></label></td>
             <td><label th:text="${payment.getReceiver()}"></label></td>
             <td><label th:text="${payment.getAmount()}"></label></td>
-            <td><form th:action="@{/payment}">
-                <input type="hidden" th:value="${payment.getPaymentId()}" name="paymentId"/>
-                <button type="submit" class="btn btn-primary">Details</button>
-            </form></td>
+
         </tr>
         </tbody>
     </table>

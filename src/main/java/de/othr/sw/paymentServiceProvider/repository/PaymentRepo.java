@@ -16,4 +16,7 @@ public interface PaymentRepo extends PagingAndSortingRepository<Payment, Long> {
     Collection<Payment> findBySenderContaining(Long sender);
     //Collection<Payment> findBySenderContaining(Long sender, PageRequest pageable);
     Collection<Payment> findBySenderAccount(Account account);
+    Collection<Payment> findByReceiverAccount_AccountIdOrSenderAccount_AccountId(Long receiverId, Long senderId);
+    Collection<Payment> deleteAllByReceiverAccount(Account account);
+    Collection<Payment> deleteAllBySenderAccount(Account accout);
 }

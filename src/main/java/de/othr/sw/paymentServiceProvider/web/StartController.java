@@ -54,8 +54,8 @@ public class StartController {
         user.setAddress(address);
         user.setAccount(account);
         user.setAccountType(AccountType.STANDARD);
+        Club club = new Club();
         if(isClub.getChecked()){
-            Club club = new Club();
             club.setAccount(user.getAccount());
             club.setFirstname(user.getFirstname());
             club.setLastname(user.getLastname());
@@ -65,12 +65,14 @@ public class StartController {
             club.setPhoneNumber(user.getPhoneNumber());
             club.setClubName(clubname);
             club.setPassword(user.getPassword());
-            userService.registerClub(club);
+            club = userService.registerClub(club);
         }else{
-            userService.registerUser(user);
+            user = userService.registerUser(user);
         }
         System.out.println(user);
-
+        if(club == null || user == null){
+            return "redirect:/register?error";
+        }
         return "login";
     }
 }
