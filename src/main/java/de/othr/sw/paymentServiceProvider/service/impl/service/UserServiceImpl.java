@@ -37,31 +37,30 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public User getUserById(Long userId) {
-        return userRepo.findById(userId).orElseThrow(
-                () -> new ServiceException("User with email " + userId + " not found")
-        );
-    }
-
-    @Override
     public User getUserByEmail(String email) {
-        return userRepo.findUserByEmailContaining(email).orElseThrow(
-                () -> new ServiceException("User with email " + email + " not found")
-        );
+        try {
+            return userRepo.findUserByEmail(email).orElseThrow(
+                    () -> new ServiceException("User with email " + email + " not found")
+            );
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public User registerUser(User newUser) {
 
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        Optional<User> user = userRepo.findUserByEmail(newUser.getEmail());
-        if(user.isPresent()){
-            return null;
-        }
         try{
+            Optional<User> user = userRepo.findUserByEmail(newUser.getEmail());
+            if(user.isPresent()){
+                return null;
+            }
+
             return userRepo.save(newUser);
         }catch(Exception e){
-            System.out.println(e);
+            e.printStackTrace();
             return null;
         }
 
@@ -70,11 +69,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Club registerClub(Club newClub) {
         newClub.setPassword(passwordEncoder.encode(newClub.getPassword()));
-        Optional<Club> club = clubRepo.findClubByEmail(newClub.getEmail());
-        if(club.isPresent()){
-            return null;
-        }
         try{
+            Optional<Club> club = clubRepo.findClubByEmail(newClub.getEmail());
+            if(club.isPresent()){
+                return null;
+            }
+
             return clubRepo.save(newClub);
         }catch(Exception e){
             System.out.println(e);
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepo.findUserByEmailContaining(username).orElseThrow(
+        return userRepo.findUserByEmail(username).orElseThrow(
                 () -> new UsernameNotFoundException("User with email " + username + " not found")
         );
     }
@@ -94,9 +94,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(){
         User thisUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        paymentRepo.deleteAllByReceiverAccount(thisUser.getAccount());
-        paymentRepo.deleteAllBySenderAccount(thisUser.getAccount());
-        accountRepo.delete(thisUser.getAccount());
-        userRepo.delete(thisUser);
+        try{
+            paymentRepo.deleteAllByReceiverAccount(thisUser.getAccount());
+            paymentRepo.deleteAllBySenderAccount(thisUser.getAccount());
+            accountRepo.delete(thisUser.getAccount());
+            userRepo.delete(thisUser);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

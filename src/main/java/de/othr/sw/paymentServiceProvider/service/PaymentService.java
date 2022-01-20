@@ -6,11 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface PaymentService {
-    Payment getPaymentById(Long userId);
-    List<Payment> getPaymentsByAccount(Long accountId);
-    Collection<Payment> getPaymentsByEmail(String senderEmail, String receiverEmail);
     Collection<Payment> getPaymentsByThisAccountId();
-    Collection<Payment> getPaymentsByAccount();
     Payment addPayment(Payment payment);
 
 }

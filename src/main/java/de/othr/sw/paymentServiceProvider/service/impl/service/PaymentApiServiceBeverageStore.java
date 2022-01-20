@@ -8,13 +8,16 @@ import de.othr.sw.paymentServiceProvider.repository.PaymentRepo;
 import de.othr.sw.paymentServiceProvider.repository.UserRepo;
 import de.othr.sw.paymentServiceProvider.service.PaymentApiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
+@Service
+@Scope(scopeName = "singleton")
 public class PaymentApiServiceBeverageStore implements PaymentApiService {
     @Autowired
     private JmsTemplate jmsTemplate;
@@ -26,11 +29,14 @@ public class PaymentApiServiceBeverageStore implements PaymentApiService {
     PaymentRepo paymentRepo;
 
     public void sendPaymentStatus(PaymentStatusDTO paymentStatusDTO) {
-        System.out.println("sendPaymentStatus");
-        jmsTemplate.convertAndSend("sw_marius1_hauenstein_queue_florian_paymentStatus", paymentStatusDTO);
+        try{
+            jmsTemplate.convertAndSend("sw_marius1_hauenstein_queue_florian_paymentStatus", paymentStatusDTO);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
-    @JmsListener(destination = "sw_florian_samaga_PayQueue")
+    @JmsListener(destination = "sw_florian_samaga_queue_PayQueue")
     public void receiveMessage(PaymentDTO newPayment) {
         PaymentStatusDTO paymentStatusDTO = new PaymentStatusDTO(false, newPayment.getOrderId());
         Payment payment = new Payment();
@@ -38,29 +44,29 @@ public class PaymentApiServiceBeverageStore implements PaymentApiService {
         payment.setSender(newPayment.getSender());
         payment.setReference(newPayment.getReference());
         payment.setAmount(newPayment.getAmount());
-        Optional<User> receiverAccount = userRepo.findUserByEmailContaining(newPayment.getReceiver());
-        if(receiverAccount.isPresent()){
-            //System.out.println("receiverAccount");
-            payment.setReceiverAccount(receiverAccount.get().getAccount());
-        }else{
-            //System.out.println("no receiverAccount");
-            this.sendPaymentStatus(paymentStatusDTO);
-            return;
-        }
-        Optional<User> senderAccount = userRepo.findUserByEmailContaining(newPayment.getSender());
-        if(senderAccount.isPresent()){
-            payment.setSenderAccount(senderAccount.get().getAccount());
-        }else{
-            this.sendPaymentStatus(paymentStatusDTO);
-            return;
-        }
-        System.out.println(LocalDate.now());
-        payment.setDate(new Date());
         try{
+            Optional<User> receiverAccount = userRepo.findUserByEmail(newPayment.getReceiver());
+            if(receiverAccount.isPresent()){
+                payment.setReceiverAccount(receiverAccount.get().getAccount());
+            }else{
+                this.sendPaymentStatus(paymentStatusDTO);
+                return;
+            }
+            Optional<User> senderAccount = userRepo.findUserByEmail(newPayment.getSender());
+            if(senderAccount.isPresent()){
+                payment.setSenderAccount(senderAccount.get().getAccount());
+            }else{
+                this.sendPaymentStatus(paymentStatusDTO);
+                return;
+            }
+            payment.setDate(new Date());
             paymentRepo.save(payment);
-        }catch (Exception e){
+            this.sendPaymentStatus(paymentStatusDTO);
+        }catch(Exception e){
+            e.printStackTrace();
             this.sendPaymentStatus(paymentStatusDTO);
         }
+
         paymentStatusDTO.setStatus(true);
         this.sendPaymentStatus(paymentStatusDTO);
     }

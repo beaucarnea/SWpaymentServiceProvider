@@ -1,10 +1,7 @@
 package de.othr.sw.paymentServiceProvider.entity;
 
-import de.othr.sw.paymentServiceProvider.entity.util.SingleIdEntity;
-
 import javax.persistence.*;
 
-//@Entity
 @Embeddable
 public class Address {
 

@@ -30,11 +30,6 @@ public class StartController {
         return "login";
     }
 
-/*    @RequestMapping(value = "login", method = RequestMethod.POST) // th:action="@{/login}"
-    public String doLogin() {
-        return "index";
-    }*/
-
     @RequestMapping(value = "/register", method = RequestMethod.GET) // /login
     public String register(Model model) {
         model.addAttribute("user", new User());
@@ -69,10 +64,9 @@ public class StartController {
         }else{
             user = userService.registerUser(user);
         }
-        System.out.println(user);
         if(club == null || user == null){
             return "redirect:/register?error";
         }
-        return "login";
+        return "redirect:/login";
     }
 }

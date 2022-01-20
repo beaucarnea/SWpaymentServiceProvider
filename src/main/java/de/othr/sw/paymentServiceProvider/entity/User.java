@@ -1,5 +1,6 @@
 package de.othr.sw.paymentServiceProvider.entity;
 
+import com.sun.istack.NotNull;
 import de.othr.sw.paymentServiceProvider.entity.util.SingleIdEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +18,15 @@ public class User extends SingleIdEntity<Long> implements UserDetails {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long userId;
     @Column(unique = true)
+    @NotNull
     private String email;
+    @NotNull
     private String firstname;
+    @NotNull
     private String lastname;
+    @NotNull
     private String password;
+    @NotNull
     private String phoneNumber;
     //@OneToOne
     @Embedded

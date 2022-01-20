@@ -8,10 +8,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -25,9 +22,12 @@ public class PaymentServiceProviderApplication implements ApplicationRunner {
 	}
 
 	@Override
-	public void run(ApplicationArguments args) throws Exception {
+	public void run(ApplicationArguments args) {
 		try{
 			User user = userService.getUserByEmail("admin@othr.de");
+			if(user == null){
+				throw new Exception();
+			}
 		}catch(Exception e) {
 			Address adminAddress = new Address();
 			adminAddress.setStreetAndHousenumber("Goethestrasse 32");
@@ -52,7 +52,10 @@ public class PaymentServiceProviderApplication implements ApplicationRunner {
 		}
 
 		try{
-			userService.getUserByEmail("thorsten@clubshop.de");
+			User user = userService.getUserByEmail("thorsten@clubshop.de");
+			if(user == null){
+				throw new Exception();
+			}
 		}catch(Exception e) {
 			Address standardAddress = new Address();
 			standardAddress.setStreetAndHousenumber("Kaistrasse 32");
@@ -76,7 +79,10 @@ public class PaymentServiceProviderApplication implements ApplicationRunner {
 			userService.registerUser(standard);
 		}
 		try{
-			userService.getUserByEmail("maxi@gmail.com");
+			User user = userService.getUserByEmail("maxi@gmail.com");
+			if(user == null){
+				throw new Exception();
+			}
 		}catch(Exception e) {
 			Address standardAddress = new Address();
 			standardAddress.setStreetAndHousenumber("Kaistrasse 32");

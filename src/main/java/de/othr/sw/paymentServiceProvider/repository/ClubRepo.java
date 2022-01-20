@@ -1,7 +1,6 @@
 package de.othr.sw.paymentServiceProvider.repository;
 
 import de.othr.sw.paymentServiceProvider.entity.Club;
-import de.othr.sw.paymentServiceProvider.entity.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

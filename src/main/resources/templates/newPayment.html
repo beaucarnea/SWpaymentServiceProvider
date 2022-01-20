@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div th:replace="common/header :: navigation"/>
     <h1>New Payment</h1>
-    <form th:action="@{/newPayment}" method="post">
+    <form th:action="@{newPayment}" method="post">
         <div th:object="${payment}">
             <div class="row mb-3">
                 <label for="receiverEmail" class="col-sm-2 col-form-label">Receiver</label>

@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div th:replace="common/header :: navigation"/>
     <h1>New Raffle</h1>
-    <form th:action="@{/newRaffle}" method="post">
+    <form th:action="@{newRaffle}" method="post">
         <div th:object="${raffle}">
             <div class="row mb-3">
                 <label for="amount" class="col-sm-2 col-form-label">Amount</label>

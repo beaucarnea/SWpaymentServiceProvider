@@ -9,9 +9,10 @@ import java.security.SecureRandom;
 
 @Configuration
 public class ServiceSecurityUtilities {
-    //@Value("#{environment.USER_PASSWORD_SALT}")
+
     @Value("${application-config.user-password-salt}")
     private String salt;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10, new SecureRandom(salt.getBytes()));
