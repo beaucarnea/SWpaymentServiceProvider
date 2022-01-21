@@ -18,7 +18,7 @@ Es gibt einen Administrator-Account der nicht gelöscht werden kann.
 (Über den Admin-Account kann eine Verlosung gestartet werden)
 
 Standardnutzer können ihren Account löschen.
-* Email: standard@othr.de
+* Email: standard@gmail.com
 * Passwort: password\
 (Alle Nutzer die sich registrieren sind Standardnutzer)
 ---
