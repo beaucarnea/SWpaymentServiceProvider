@@ -10,7 +10,7 @@
             <div class="row mb-3">
                 <label for="receiverEmail" class="col-sm-2 col-form-label">Receiver</label>
                 <div class="col-sm-10">
-                    <input type="email" th:name="receiver" class="form-control" id="receiverEmail">
+                    <input type="email" th:name="receiver" class="form-control" id="receiverEmail" required="true">
                 </div>
             </div>
             <div th:if="${param.error}" class="alert alert-danger">
@@ -19,13 +19,13 @@
             <div class="row mb-3">
                 <label for="amount" class="col-sm-2 col-form-label">Amount</label>
                 <div class="col-sm-10">
-                    <input type="number" th:name="amount" class="form-control" id="amount">
+                    <input type="number" th:name="amount" class="form-control" id="amount" required="true">
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="reference" class="col-sm-2 col-form-label">Reference</label>
                 <div class="col-sm-10">
-                    <input type="text" th:name="reference" class="form-control" id="reference">
+                    <input type="text" th:name="reference" class="form-control" id="reference" required="true">
                 </div>
             </div>
         </div>

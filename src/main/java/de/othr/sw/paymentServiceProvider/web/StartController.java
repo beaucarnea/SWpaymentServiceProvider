@@ -51,6 +51,9 @@ public class StartController {
         user.setAccountType(AccountType.STANDARD);
         Club club = new Club();
         if(isClub.getChecked()){
+            if(clubname.equals("")){
+                return "redirect:/register?error";
+            }
             club.setAccount(user.getAccount());
             club.setFirstname(user.getFirstname());
             club.setLastname(user.getLastname());
@@ -61,11 +64,14 @@ public class StartController {
             club.setClubName(clubname);
             club.setPassword(user.getPassword());
             club = userService.registerClub(club);
+            if(club == null){
+                return "redirect:/register?error";
+            }
         }else{
             user = userService.registerUser(user);
-        }
-        if(club == null || user == null){
-            return "redirect:/register?error";
+            if(user == null){
+                return "redirect:/register?error";
+            }
         }
         return "redirect:/login";
     }
