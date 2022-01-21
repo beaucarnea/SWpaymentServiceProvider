@@ -47,6 +47,7 @@ public class RaffleServiceImpl implements RaffleService {
 
             Optional<User> user = userRepo.findUserByEmail(receiver);
             if(user.isEmpty()){
+                raffleRepo.save(raffle);
                 // send Email: You've won!!! Please register at PaymentServiceProvider :)
             }else{
                 Payment payment = new Payment();

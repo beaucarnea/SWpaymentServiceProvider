@@ -105,5 +105,32 @@ public class PaymentServiceProviderApplication implements ApplicationRunner {
 			standard.setPhoneNumber("52043");
 			userService.registerUser(standard);
 		}
+		try{
+			User user = userService.getUserByEmail("standard@gmail.com");
+			if(user == null){
+				throw new Exception();
+			}
+		}catch(Exception e) {
+			Address standardAddress = new Address();
+			standardAddress.setStreetAndHousenumber("Kaistrasse 32");
+			standardAddress.setLocation("Regensburg");
+			standardAddress.setPostcode("93055");
+			standardAddress.setCountry("Japan");
+
+			Account stanardAccount = new Account();
+			List<Payment> payments = Collections.emptyList();
+			stanardAccount.setPayments(payments);
+
+			User standard = new User();
+			standard.setEmail("standard@gmail.com");
+			standard.setFirstname("Standard");
+			standard.setLastname("Test");
+			standard.setPassword("password");
+			standard.setAddress(standardAddress);
+			standard.setAccount(stanardAccount);
+			standard.setAccountType(AccountType.STANDARD);
+			standard.setPhoneNumber("52043");
+			userService.registerUser(standard);
+		}
 	}
 }
